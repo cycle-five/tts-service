@@ -368,7 +368,9 @@ static STATE: OnceCell<State> = OnceCell::new();
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let fmt_layer = tracing_subscriber::fmt::layer();
+    let fmt_layer = tracing_subscriber::fmt::layer()
+        .with_file(true)
+        .with_line_number(true);
     let filter = tracing_subscriber::filter::LevelFilter::from_str(
         &std::env::var("LOG_LEVEL").unwrap_or_else(|_| String::from("INFO")),
     )?;

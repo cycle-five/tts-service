@@ -1,3 +1,4 @@
+use base64::Engine;
 use tokio::sync::RwLock;
 
 use crate::Result;
@@ -15,7 +16,7 @@ pub struct State {
 impl State {
     pub(crate) fn new(reqwest: reqwest::Client) -> Result<RwLock<Self>> {
         let service_account: ServiceAccount = serde_json::from_str(&std::fs::read_to_string(
-            std::env::var("GOOGLE_APPLICATION_CREDENTIALS").unwrap(),
+            std::env::var("GOOGLE_APPLICATION_CREDENTIALS")?,
         )?)?;
         let (jwt_token, expire_time) = generate_jwt(
             service_account.private_key.clone(),
@@ -182,6 +183,7 @@ async fn refresh_jwt(state: &RwLock<State>) -> Result<String> {
     }
 }
 
+use base64::engine::general_purpose;
 pub async fn get_tts(
     state: &RwLock<State>,
     text: &str,
@@ -214,9 +216,8 @@ pub async fn get_tts(
 
     let resp_raw = resp.bytes().await?;
     let audio_response: AudioResponse = serde_json::from_slice(&resp_raw)?;
-
     Ok((
-        bytes::Bytes::from(base64::decode(audio_response.audio_content)?),
+        bytes::Bytes::from(general_purpose::STANDARD_NO_PAD.decode(audio_response.audio_content)?),
         Some(reqwest::header::HeaderValue::from_static(
             audio_encoding.content_type(),
         )),

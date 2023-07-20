@@ -21,19 +21,21 @@ services:
     tts-service:
         image: tts-service:latest
         restart: always
-        #volumes:
-        #  - type: bind
-        #    source: ${GOOGLE_APPLICATION_CREDENTIALS}
-        #    target: /gcp.json
+        volumes:
+          - type: bind
+            source: ${GOOGLE_APPLICATION_CREDENTIALS}
+            target: /gcp.json
         environment:
           IPV6_BLOCK: DISABLE
           LOG_LEVEL: DEBUG
           BIND_ADDR: 0.0.0.0:20310
-          #GOOGLE_APPLICATION_CREDENTIALS: "/gcp.json"
+          GOOGLE_APPLICATION_CREDENTIALS: "./gcp.json"
+          AWS_REGION: eu-east-1
+          AWS_ACCESS_KEY_ID: ""
+          AWS_SECRET_ACCESS_KEY_ID: ""
           REDIS_HOST: cache
           REDIS_PORT: 6379
           REDIS_PASSWORD: lolpassword
-        network_mode: "host"
         expose: [20310]
         links: [db, cache]
         depends_on: [cache]

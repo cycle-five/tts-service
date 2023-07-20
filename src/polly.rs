@@ -1,4 +1,4 @@
-use aws_sdk_polly::model::{Engine, Gender, LanguageCode, OutputFormat, TextType, VoiceId};
+use aws_sdk_polly::types::{Engine, Gender, LanguageCode, OutputFormat, TextType, VoiceId};
 use serde::ser::SerializeStruct;
 
 use crate::Result;
@@ -15,8 +15,8 @@ pub struct VoiceLocal {
     pub id: Option<VoiceId>,
 }
 
-impl From<aws_sdk_polly::model::Voice> for VoiceLocal {
-    fn from(v: aws_sdk_polly::model::Voice) -> Self {
+impl From<aws_sdk_polly::types::Voice> for VoiceLocal {
+    fn from(v: aws_sdk_polly::types::Voice) -> Self {
         Self {
             additional_language_codes: v.additional_language_codes,
             supported_engines: v.supported_engines,
