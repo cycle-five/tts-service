@@ -1,6 +1,6 @@
 FROM lukemathwalker/cargo-chef:latest-rust-latest AS chef
 
-ARG MODES="espeak"
+ARG MODES="espeak,gtty"
 
 WORKDIR /build
 
