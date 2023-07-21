@@ -21,6 +21,8 @@ services:
     tts-service:
         image: tts-service:latest
         restart: always
+        ports:
+          - '20310:20310'
         volumes:
           - type: bind
             source: ${GOOGLE_APPLICATION_CREDENTIALS}
