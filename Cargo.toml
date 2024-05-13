@@ -2,27 +2,27 @@
 name = "tts-service"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.58"
+rust-version = "1.78"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [profile.release]
 lto = "thin"
 
 [dependencies]
-deadpool-redis = "0.14"
+deadpool-redis = "0.15.1"
 serde_json = "1"
 tracing = "0.1"
 sha2 = "0.10"
 rand = "0.8"
 anyhow = "1"
-base64 = "0.21"
+base64 = "0.22.1"
 ipgen = "1"
 bytes = "1"
 jsonwebtoken = "9"
 mp3-duration = "0.1"
 itertools = "0.12"
-aws-sdk-polly = "1.7.0"
-small-fixed-array = { version = "0.4.0", features = ["serde"] }
+aws-sdk-polly = "1.25.0"
+small-fixed-array = { version = "0.4.4", features = ["serde"] }
 
 [dependencies.fernet]
 version = "0.2"
@@ -55,15 +55,15 @@ version = "1"
 features = ["derive"]
 
 [dependencies.redis]
-version = "0.24"
+version = "0.25"
 default-features = false
 features = ["aio", "tokio-comp"]
 
 [dependencies.reqwest]
-version = "0.11"
+version = "0.12"
 features = ["rustls-tls", "json"]
 default-features = false
 
 [dependencies.aws-config]
-version = "1.1.1"
+version = "1.4"
 features = ["behavior-version-latest"]
