@@ -6,6 +6,8 @@ rust-version = "1.78"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [profile.release]
+incremental = true
+debug = 0
 lto = "thin"
 
 [dependencies]
@@ -37,7 +39,7 @@ features = ["smallvec", "fmt", "ansi", "parking_lot"]
 [dependencies.axum]
 version = "0.7"
 default-features = false
-features = ["http1", "http2", "json", "query", "tokio"]
+features = ["http2", "json", "query", "tokio"]
 
 [dependencies.tokio]
 version = "1"
